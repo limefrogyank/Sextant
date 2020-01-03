@@ -19,15 +19,18 @@ namespace SextantSample.Views
 				this.BindCommand(ViewModel, x => x.OpenModal, x => x.FirstModalButton).DisposeWith(disposables);
                 this.BindCommand(ViewModel, x => x.PushPage, x => x.PushPage).DisposeWith(disposables);
                 this.BindCommand(ViewModel, x => x.PushGenericPage, x => x.PushGenericPage).DisposeWith(disposables);
+                this.BindCommand(ViewModel, x => x.ViewStackTop, x => x.ViewStackTop).DisposeWith(disposables);
+
+                Interactions
+                   .ErrorMessage
+                   .RegisterHandler(async x =>
+                   {
+                       await DisplayAlert("Error", x.Input.Message, "Done");
+                       x.SetOutput(true);
+                   }).DisposeWith(disposables);
             });
 
-            Interactions
-                .ErrorMessage
-                .RegisterHandler(async x =>
-                {
-                    await DisplayAlert("Error", x.Input.Message, "Done");
-                    x.SetOutput(true);
-                });
+           
         }
     }
 }
